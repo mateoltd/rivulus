@@ -1,0 +1,21 @@
+[package]
+name = "rivulus-node"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+license = "MIT OR Apache-2.0"
+description = "Node.js binding (napi-rs) over the rivulus core. Standalone crate: not a workspace member, builds on stable only."
+repository = "https://github.com/rivulus/rivulus"
+
+[lib]
+crate-type = ["cdylib"]
+name = "rivulus_node"
+
+[dependencies]
+napi = "=2.16.17"
+napi-derive = "=2.16.13"
+rivulus = { version = "0.1.0", path = "../crates/rivulus" }
+tokio = { version = "1", features = ["rt", "sync", "time", "macros"] }
+
+[build-dependencies]
+napi-build = "=2.2.4"

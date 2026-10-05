@@ -14,3 +14,7 @@ target/
 *.swo
 .vscode/
 .idea/
+
+# Node (binding crate + djs-equiv harness have their own trees)
+node_modules/
+*.node

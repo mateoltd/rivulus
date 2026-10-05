@@ -1,6 +1,9 @@
 [workspace]
 resolver = "2"
 members = ["crates/*", "xtask"]
+# node/ is a standalone napi crate on purpose: outside the workspace so the
+# 1.75 MSRV job never builds it (plan 11, section 4). It has its own lock.
+exclude = ["node"]
 
 [workspace.package]
 edition = "2021"
