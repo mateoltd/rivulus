@@ -45,10 +45,12 @@ Same contract as `createClient`, plus mock base URLs. Points REST at
 `restBase` and the gateway at `gatewayBase` (used with `login_with_url`
 semantics). Never production. Status: M3.
 
-### `subscribe(handle: number, kinds: string[], listener: (batch: string) => void): void` (sync)
+### `subscribe(handle: number, kinds: string[], listener: (error: Error | null, batch: string) => void): void` (sync)
 
 First subscribe creates the per-client threadsafe function; replacing the
-listener aborts the previous one. Status: M3.
+listener aborts the previous one. The listener follows Node error-first
+convention (napi `CalleeHandled` strategy): `error` is null on delivery.
+Status: M3.
 
 ### `unsubscribe(handle: number): void` (sync)
 
@@ -103,6 +105,11 @@ Status: M3.
 ### `close(handle: number): Promise<void>` (async)
 
 See lifecycle above. Status: M3.
+
+### `testLiveCount(): number` (sync, test-only)
+
+Test-only live-handle count for the leak probe. Never production.
+Status: M4.
 
 ## Snapshot shapes (pinned)
 

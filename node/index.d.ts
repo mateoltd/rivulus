@@ -50,11 +50,12 @@ export declare function getCacheStats(handle: number): CacheSnapshot
 /** Pure ed25519 webhook verification (bytes only, fail-closed). */
 export declare function verifyWebhook(publicKeyHex: string, timestamp: string, body: Buffer, sigHex: string): void
 /**
- * Close a client: mark closed, drop the queue, release the listener,
- * forget the handle. A second close of the same handle rejects
+ * Close a client: mark closed, drop the queue, release the listener,/// forget the handle. A second close of the same handle rejects
  * `unknown-handle` (the id no longer maps to anything).
  */
 export declare function close(handle: number): Promise<void>
+/** Test-only live-handle count for the leak probe (M4). Never production. */
+export declare function testLiveCount(): number
 /** One message snapshot (see `node/contract.md`). */
 export interface MessageSnapshot {
   id: string

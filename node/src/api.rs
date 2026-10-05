@@ -288,8 +288,7 @@ pub fn verify_webhook(
     interactions::verify(&public_key_hex, &timestamp, bytes, &sig_hex).map_err(reject)
 }
 
-/// Close a client: mark closed, drop the queue, release the listener,
-/// forget the handle. A second close of the same handle rejects
+/// Close a client: mark closed, drop the queue, release the listener,/// forget the handle. A second close of the same handle rejects
 /// `unknown-handle` (the id no longer maps to anything).
 #[napi]
 pub async fn close(handle: f64) -> napi::Result<()> {
@@ -303,4 +302,10 @@ pub async fn close(handle: f64) -> napi::Result<()> {
         }
         None => Err(errors::unknown_handle()),
     }
+}
+
+/// Test-only live-handle count for the leak probe (M4). Never production.
+#[napi]
+pub fn test_live_count() -> f64 {
+    state::registry().live_count() as f64
 }

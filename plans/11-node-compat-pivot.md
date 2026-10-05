@@ -379,3 +379,8 @@ Resolutions, with dissent handled explicitly:
   no core behavior changed.
 - u64 never crosses the boundary (napi 2.16 has no plain-u64 JS mapping):
   latencies and uptime cross as `f64`, IDs as strings, per contract.
+- Dispatch routing uses the `Unknown` inner kind (core forwards non-core
+  dispatches as `Event::Unknown`, whose `kind()` bucket is always
+  `"UNKNOWN"`); subscribers match Discord kinds. Listeners are error-first
+  `(error, batch)` per the napi `CalleeHandled` strategy, pinned in the
+  contract after a live failure proved the first-arg shape.
