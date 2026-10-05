@@ -4,8 +4,12 @@
 [![msrv](https://img.shields.io/badge/msrv-1.75-orange)](plans/09-decisions-locked.md)
 [![license](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-green)](Cargo.toml)
 
+> Experiment: this repository tests the capabilities of Muse Spark 1.3.
+> It was built without human intervention and is likely "vibe coded slop".
+> Use at your own risk.
+
 A modular, async Rust library for Discord bots with discord.js-level
-capabilities — familiar concepts (`Client`, intents, events, managers,
+capabilities: familiar concepts (`Client`, intents, events, managers,
 collectors, sharding, REST) with deterministic memory and no GC.
 
 > Status: `0.1.0` (unreleased, P0–P9). Voice is **stub-only** in v1
@@ -14,7 +18,7 @@ collectors, sharding, REST) with deterministic memory and no GC.
 ## 5-minute quickstart
 
 ```toml
-# Cargo.toml — short import names, no `rivulus-` prefix in Rust code.
+# Cargo.toml - short import names, no `rivulus-` prefix in Rust code.
 [dependencies]
 rivulus = "0.1"
 tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
@@ -55,7 +59,7 @@ async fn main() -> Result<(), rivulus::common::Error> {
 ```
 
 More in [`crates/rivulus/examples/`](crates/rivulus/examples/): `ping`, `slash`, `buttons-collector`,
-`sharded`, `cache-tuning`, `webhook-verify-axum` — all runnable offline
+`sharded`, `cache-tuning`, `webhook-verify-axum` - all runnable offline
 (mock-safe, no `DISCORD_TOKEN` needed).
 
 ## discord.js → rivulus (short version)
@@ -65,7 +69,7 @@ More in [`crates/rivulus/examples/`](crates/rivulus/examples/): `ping`, `slash`,
 | `new Client({ intents })` / `client.login()` | `rivulus::Client::builder(tok).intents(..).build()?` / `client.login().await` |
 | `client.on('messageCreate', f)` | `.add_handler(closure)` / `impl rivulus::EventHandler` |
 | `guild.members.fetch(id)` | `ctx.members().fetch(guild, user)` (+ sync `get(guild, user)`) |
-| `channel.messages.fetch({ limit })` | `ctx.messages().fetch_page(ch, n)` AND `stream_pages(ch, n)` — one-shot vs single-page stream (no cursor), `0→1` clamp, live-only (mock returns `{}` offline); full semantics in MIGRATION + `ping.rs` |
+| `channel.messages.fetch({ limit })` | `ctx.messages().fetch_page(ch, n)` AND `stream_pages(ch, n)` - one-shot vs single-page stream (no cursor), `0→1` clamp, live-only (mock returns `{}` offline); full semantics in MIGRATION + `ping.rs` |
 | `awaitMessages({ filter, max, time })` | `standby::Standby::wait_for(..)` / `standby::Collector` |
 | `new SlashCommandBuilder()` + REST put | `interactions::CommandDef::slash(..)` + `bulk_overwrite_payload(..)` |
 | `client.shard` / `ShardingManager` | `gateway::ShardStrategy::Auto` + `gateway::ClusterConfig` |
@@ -75,15 +79,15 @@ Full mapping: [`MIGRATION.md`](MIGRATION.md).
 
 ## RAM (measured vs template)
 
-> TEMPLATE — pending P10 measurement. The shape below is what P10 will
+> TEMPLATE: pending P10 measurement. The shape below is what P10 will
 > fill with measured RSS (`quick` CI: 100 guilds; nightly: 1k/10k/50k).
 > Do not quote these numbers as results.
 
 | Workload | discord.js RSS (template) | rivulus RSS (template) | Notes |
 |---|---|---|---|
-| 100 guilds, msg-only | — | — | P10 `quick` |
-| 1k guilds, full cache | — | — | P10 nightly |
-| bytes/guild | — | — | measured, not asserted |
+| 100 guilds, msg-only | - | - | P10 `quick` |
+| 1k guilds, full cache | - | - | P10 nightly |
+| bytes/guild | - | - | measured, not asserted |
 
 Target ( Crane 01 §2): ~80% lower RAM under equivalent workloads;
 CI gate (S2): `<= 20%` of equivalent discord.js RSS with tolerance bands.
@@ -111,9 +115,9 @@ There are intentionally NO `simd` / `zstd-gateway` / `voice-dave` /
 `interactions-axum` features in v1 (locked, see
 [`plans/09-decisions-locked.md`](plans/09-decisions-locked.md)).
 The axum webhook sketch is `examples/webhook-verify-axum.rs` and needs
-YOUR OWN `axum` dependency — it is example-only, never a crate feature.
+YOUR OWN `axum` dependency - it is example-only, never a crate feature.
 
-Downstream crates (external bots) — copy-paste:
+Downstream crates (external bots), copy-paste:
 
 ```toml
 # Minimal (gateway + rest + in-memory cache):
