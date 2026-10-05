@@ -139,10 +139,10 @@ boundary.
 later): crossing the boundary still allocates; the win is where state lives
 and how rarely JS must cross. There is exactly one verdict rule, and it
 replaces both earlier formulations: the M5 turn pre-registers numeric bands
-first (bytes allocated per message from `--trace-gc` deltas over an
-iteration loop, survivors after forced GC as secondary, RSS only as a
-Rust-side leak tripwire), then runs, then compares medians with dispersion
-over repeated runs. If the binding allocates more per message than the
+first (bytes allocated per message from heap-growth deltas with forced-GC
+bookends over an iteration loop, survivors after forced GC as secondary,
+RSS only as a Rust-side leak tripwire), then runs, then compares medians
+with dispersion over repeated runs. If the binding allocates more per message than the
 baseline on the identical mock workload, the milestone fails and M5-fail is
 a legitimate stop-or-pivot outcome (columnar crossing first, narrower
 crossings second), not a refactor mandate. No warn-only landing: bands are
@@ -249,8 +249,11 @@ equiv with caches disabled against the same mocks, (c) binding with a
 retaining consumer as a canary for accidental rewrites (not evidence),
 (d) discord.js with default caches (documents how much of any win is
 consumer configuration). Primary metric: allocated bytes per message from
-`--trace-gc` deltas over an iteration loop; survivors after forced GC
-secondary; RSS only as a Rust-side leak tripwire. The mocks serving (b)
+heap-growth deltas with forced-GC bookends over an iteration loop (a
+lower bound where V8 collects mid-loop, stated as such; event-count
+parsing of `--trace-gc` output is explicitly out of scope because formats
+drift across Node 20/22/24); survivors after forced GC secondary; RSS only
+as a Rust-side leak tripwire. The mocks serving (b)
 are loopback socket servers faithful enough for discord.js gateway/REST
 handshake plus 429 handling; the shared fixture format (frames both arms
 must replay) is defined in the M5 turn, seeded by live-captured redacted
@@ -331,7 +334,7 @@ Resolutions, with dissent handled explicitly:
 - Errors reject as `Error` with `.message` pinned by contract, no `.code`
   in M3 (all three demanded Error semantics; code field deferred as
   unneeded surface).
-- Primary metric is allocation rate via `--trace-gc` deltas,
+- Primary metric is allocation rate via heap-growth deltas,
   pre-registered bands, verdict on (a) vs (b)+(d), (c) demoted to canary,
   M5-fail is legitimate stop-or-pivot (all three showed heap-after-GC
   alone cannot falsify the claim; deepseek/bunny wanted rate, glm wanted

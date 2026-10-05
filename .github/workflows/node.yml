@@ -24,6 +24,8 @@ jobs:
         working-directory: node
       - run: npm test
         working-directory: node
+      - run: npm run measure -- --quick
+        working-directory: node
       - run: npm run smoke
         working-directory: node
       - run: cargo fmt --manifest-path node/Cargo.toml --check
