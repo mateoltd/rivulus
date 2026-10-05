@@ -1,4 +1,4 @@
-//! `common` — foundation for `rivulus` (error, json shim, validate, oauth, utils, format).
+//! `common` - foundation for `rivulus` (error, json shim, validate, oauth, utils, format).
 #![forbid(unsafe_code)]
 #![deny(missing_docs)]
 

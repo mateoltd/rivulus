@@ -1,4 +1,4 @@
-//! JSON shim — `serde_json` only in v1 (no simd). Single-pass header peek supported.
+//! JSON shim - `serde_json` only in v1 (no simd). Single-pass header peek supported.
 use serde::{Deserialize, Serialize};
 
 pub use serde_json::value::RawValue;

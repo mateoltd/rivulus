@@ -349,7 +349,7 @@ mod tests {
     fn webhook_token_never_debug_logged() {
         // Webhook tokens are secrets: `SecretString` Debug must redact, and
         // the followup URL (which embeds the token) must be treated as
-        // secret — wrapping it back in `SecretString` must also redact.
+        // secret - wrapping it back in `SecretString` must also redact.
         let raw = "webhook-token-secret-xyz";
         let token = secrecy::SecretString::from(String::from(raw));
         assert!(!format!("{token:?}").contains(raw));

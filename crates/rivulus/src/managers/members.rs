@@ -53,7 +53,7 @@ impl Members {
     }
     /// Fetch one page of members (dual API with [`Self::stream_pages`]).
     ///
-    /// Uses [`rest::Route::ListMembers`]; the frozen P1a variant carries no
+    /// Uses [`rest::Route::ListMembers`]; the frozen variant carries no
     /// `limit`/`after` fields so [`rest::Route::query`] is `None` for it and
     /// `limit` is applied client-side via `take(limit)` (`0` maps to `1`).
     ///

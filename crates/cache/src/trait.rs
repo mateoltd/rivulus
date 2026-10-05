@@ -1,4 +1,4 @@
-//! Dyn-safe `Cache` trait (frozen P1a).
+//! Dyn-safe `Cache` trait.
 use std::sync::Arc;
 
 bitflags::bitflags! {

@@ -5,7 +5,7 @@
 //!
 //! NOTE: this example deliberately has NO axum dependency. The `verify()`
 //! call below is the whole integration: axum (or any server) wiring is user
-//! code — extract `X-Signature-Ed25519` + `X-Signature-Timestamp`, call
+//! code - extract `X-Signature-Ed25519` + `X-Signature-Timestamp`, call
 //! `verify()`, and only then parse the body. A minimal axum sketch follows
 //! as a comment (do not paste it without adding `axum` to YOUR crate;
 //! `interactions-axum` is example-only and NOT a `rivulus` feature, v1).

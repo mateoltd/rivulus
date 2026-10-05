@@ -4,7 +4,7 @@ All notable changes to `rivulus` (facade version = release; inner crates
 version independently). Format follows Keep a Changelog; versions follow
 SemVer (`0.x` pre-1.0, per `plans/07-testing-ci-docs-release.md`).
 
-## [0.1.0] — Unreleased
+## [0.1.0] - Unreleased
 
 ### Added (P0 Scaffold & guardrails)
 

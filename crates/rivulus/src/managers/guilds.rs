@@ -22,7 +22,7 @@ impl Guilds {
     pub fn get(&self, id: model::GuildId) -> Option<Arc<model::Guild>> {
         self.ctx.cache.get_guild(id)
     }
-    /// Async fetch (REST; falls back to cache on error shape in P5-full).
+    /// Async fetch (REST; falls back to cache on error shape).
     ///
     /// Cache first, then `GET /guilds/{id}` via [`rest::Route::GetGuild`].
     ///

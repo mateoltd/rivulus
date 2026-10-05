@@ -1,4 +1,4 @@
-# djs-equiv (nightly skeleton — not run in CI)
+# djs-equiv (nightly skeleton - not run in CI)
 
 Identical-workload discord.js bot for the P10 RAM comparison (plans/05 §4).
 

@@ -1,4 +1,4 @@
-//! `voice` — STUB ONLY in v1 (deferred post-1.0).
+//! `voice` - STUB ONLY in v1 (deferred post-1.0).
 //!
 //! Voice send/recv is explicitly deferred (see `plans/09` D6 and `plans/04`
 //! §E). This crate compiles an empty [`JoinConfig`] plus a [`JoinConfig::deferred`]

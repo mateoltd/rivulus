@@ -106,8 +106,8 @@ impl ClientBuilder {
     /// `shards` is the configured cheapest placeholder: one
     /// [`gateway::ShardMessenger`] with `ShardId { id: 0, total: 1 }`.
     /// The real count comes from `GET /gateway/bot` at `login()` once the
-    /// `Cluster` spawns (P6); until then `health()`/`latencies()` report
-    /// this single placeholder. `Manual` carries no ids (frozen P1a shape),
+    /// `Cluster` spawns; until then `health()`/`latencies()` report
+    /// this single placeholder. `Manual` carries no ids (frozen shape),
     /// so it also maps to the single placeholder (documented gap).
     ///
     /// # Errors
@@ -199,7 +199,7 @@ impl Client {
     /// Login against live Discord (`GET /gateway/bot` then spawn).
     ///
     /// Fetches [`model::GetGatewayBotResponse`] over REST (network errors
-    /// propagate as [`common::Error::Network`]/[`common::Error::Timeout`] —
+    /// propagate as [`common::Error::Network`]/[`common::Error::Timeout`] -
     /// never panics offline), sizes `Auto` sharding from the response, and
     /// spawns `gateway::Cluster` against the returned `url` (live
     /// `wss://...` needs the `tls` feature; see `plans/DECISIONS.md` D1).
@@ -369,7 +369,7 @@ impl Client {
     /// Graceful shutdown (close 1000, cancel chunks, drain dispatcher, 5s max).
     ///
     /// Cancels the [`Self::shutdown_handle`] token, then drains up to 5s.
-    /// P5 stub: no live shards/chunks yet, so the drain is a bounded wait.
+    /// No live shards/chunks yet, so the drain is a bounded wait.
     pub async fn shutdown(&self) {
         self.shutdown.cancel();
         let _ = tokio::time::timeout(Duration::from_secs(5), async {}).await;

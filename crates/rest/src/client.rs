@@ -39,7 +39,7 @@ impl ClientBuilder {
         self
     }
     /// Build (wires `webpki-roots` explicitly; `rustls-tls-manual-roots` ships
-    /// no roots alone, so live TLS failed on first call — fixed by using
+    /// no roots alone, so live TLS failed on first call - fixed by using
     /// `rustls-tls-webpki-roots` + explicit opt-in below).
     ///
     /// # Errors

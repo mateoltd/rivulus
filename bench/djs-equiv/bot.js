@@ -1,4 +1,4 @@
-// discord.js equivalent bot for P10 RAM comparison (skeleton — see README).
+// discord.js equivalent bot for P10 RAM comparison (skeleton - see README).
 //
 // Workload parity with the rivulus side:
 //   - same intents (Guilds + GuildMessages + MessageContent)

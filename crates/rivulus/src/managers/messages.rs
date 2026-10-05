@@ -27,7 +27,7 @@ impl Messages {
     /// Cache first, then `GET /channels/{c}/messages/{m}` via
     /// [`rest::Route::GetMessage`]. Gap: `get(id)` alone cannot build the
     /// route (it needs the channel), so `fetch` takes `(channel, id)`
-    /// (documented; `Route` is frozen P1a).
+    /// (documented; `Route` is frozen).
     ///
     /// # Errors
     /// Returns [`common::Error`] when the request fails.

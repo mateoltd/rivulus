@@ -1,4 +1,4 @@
-//! Gateway opcodes (0,1,2,3,4,6,7,8,9,10,11 — no voice ops).
+//! Gateway opcodes (0,1,2,3,4,6,7,8,9,10,11 - no voice ops).
 //!
 //! Tolerant parsing: unknown values decode as `Unknown(u8)` instead of
 //! erroring, so forward-compatible payloads survive. Manual `u8`

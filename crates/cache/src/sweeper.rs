@@ -26,7 +26,7 @@ pub struct Sweeper;
 
 impl Sweeper {
     /// Sweep once (sharded `retain`, bounded per call, never held across
-    /// `.await` — fully synchronous). Uses the cache's configured
+    /// `.await` - fully synchronous). Uses the cache's configured
     /// `message_max_age_secs`. Returns messages removed.
     #[must_use = "sweep count discarded"]
     pub fn sweep_once(cache: &crate::InMemoryCache) -> usize {

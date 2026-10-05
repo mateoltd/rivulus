@@ -225,7 +225,7 @@ async fn async_main() {
     const AVAILABLE_P99_BUDGET_MS: f64 = 2.0;
 
     let waited_ms = scenario_preemptive().await;
-    println!("preemptive_wait: second call delayed {waited_ms:.1}ms (reset_after=200ms) — PASS");
+    println!("preemptive_wait: second call delayed {waited_ms:.1}ms (reset_after=200ms) - PASS");
 
     let avail = scenario_available(n_available).await;
     let avail_p50 = percentile(&avail, 0.50);
@@ -240,11 +240,11 @@ async fn async_main() {
     let (qlat, hits, wall_ms) = scenario_queue_depth(depth).await;
     let q_p50 = percentile(&qlat, 0.50);
     let q_p99 = percentile(&qlat, 0.99);
-    println!("queue_depth: concurrency={depth} hits={hits} wall={wall_ms:.1}ms p50={q_p50:.3}ms p99={q_p99:.3}ms — PASS");
+    println!("queue_depth: concurrency={depth} hits={hits} wall={wall_ms:.1}ms p50={q_p50:.3}ms p99={q_p99:.3}ms - PASS");
 
     let shared_ok = scenario_shared_excluded();
     assert!(shared_ok, "shared scope must stay out of the ban meter");
-    println!("shared_excluded: 9000 shared 429s uncounted — PASS");
+    println!("shared_excluded: 9000 shared 429s uncounted - PASS");
 
     if breached {
         println!(
