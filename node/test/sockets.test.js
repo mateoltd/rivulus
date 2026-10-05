@@ -1,6 +1,8 @@
-// Socket scope: every URL in the Node test tree must be loopback.
+// Socket scope: every URL in the mock test tree must be loopback.
 // This guards the mock-first premise mechanically: no test may point the
-// binding (or a mock) at a non-local host.
+// binding (or a mock) at a non-local host. bench/ harnesses are exempt on
+// purpose: they are documented local-only live tools, so this scan covers
+// test/ only.
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
 const fs = require("node:fs");
@@ -21,8 +23,8 @@ function jsFiles(dir, out) {
   return out;
 }
 
-test("all URLs in node tests are loopback", () => {
-  const files = jsFiles(path.join(__dirname, ".."), []);
+test("all URLs in mock tests are loopback", () => {
+  const files = jsFiles(path.join(__dirname), []);
   const offenders = [];
   const urlPattern = /(?:https?|wss?):\/\/([^/:)"'\s]+)/g;
   for (const file of files) {

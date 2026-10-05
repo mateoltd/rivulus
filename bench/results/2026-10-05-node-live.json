@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-05",
+  "ready": true,
+  "loginElapsedMs": 722,
+  "guilds": 1,
+  "channels": 4,
+  "messages": 2,
+  "healthReady": true,
+  "shards": 1,
+  "latencies": [
+    {
+      "shard": 0,
+      "total": 1,
+      "latencyMs": 0
+    }
+  ],
+  "hitRatio": 1,
+  "error": null,
+  "elapsedMs": 1381
+}
