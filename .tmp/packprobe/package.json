@@ -1,0 +1,30 @@
+{
+  "name": "rivulus-node",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Node.js binding (napi-rs) over the rivulus core. Experiment scaffolding.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "napi build --platform",
+    "check-contract": "node check-contract.js",
+    "check-types": "tsc --noEmit -p tsconfig.json",
+    "measure": "node --expose-gc bench/gc-measure.js",
+    "smoke": "node smoke.js",
+    "test": "node --test test/login.test.js test/pages.test.js test/subscribe.test.js test/lifecycle.test.js test/redaction.test.js test/verify.test.js test/example.test.js test/translation.test.js test/timeout.test.js test/sockets.test.js"
+  },
+  "napi": {
+    "binaryName": "rivulus-node",
+    "targets": [
+      "x86_64-unknown-linux-gnu"
+    ]
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "=2.18.4",
+    "@types/node": "=22.20.5",
+    "discord.js": "=14.27.0",
+    "typescript": "=5.9.3",
+    "ws": "=8.22.0"
+  }
+}

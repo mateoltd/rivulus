@@ -139,6 +139,31 @@ crate exists as a stub (`JoinConfig` placeholder) so the workspace shape
 is stable; it performs no UDP, RTP, or crypto. There is no
 `examples/voice-send.rs` in v1.
 
+## Node.js binding (`node/`, napi-rs)
+
+A Node.js API over the same core, with hot state (cache, gateway buffers,
+ratelimiter) held in Rust and only snapshots crossing to JS. Surface and
+semantics are pinned in [`node/contract.md`](node/contract.md).
+
+```js
+const binding = require("rivulus-node");
+const handle = binding.createClient({
+  token: process.env.DISCORD_TOKEN,
+  intents: 513,
+  cache: "balanced",
+  sharding: "auto",
+});
+await binding.login(handle);
+const page = await binding.fetchPage(handle, "3", 50);
+await binding.close(handle);
+```
+
+Layout and commands: `node/` is a standalone crate (not a workspace
+member, builds on stable only; see [`node/README.md`](node/README.md)).
+`npm run build`, `npm run check-contract`, `npm run check-types`,
+`npm test`, `npm run smoke`, `npm run measure`. GC numbers and method are
+recorded in [`bench/results/`](bench/results/).
+
 ## Errors
 
 All errors flow through `rivulus::common::Error` (no `unwrap` in library

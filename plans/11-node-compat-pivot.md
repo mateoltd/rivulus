@@ -296,8 +296,11 @@ turn with `dogfood-smoke-*` naming first.
 - M4 mock-first boundary suite in CI (Node job, no token), per 5.1.
 - M5 GC measurement with pre-registered bands and verdict, per 5.2.
 - M6 live harness connectivity run with committed redacted evidence.
-- M7 docs (README section, MIGRATION row, hygiene re-check), `npm
-  pack` dry run (source build; prebuilds explicitly out of scope).
+- M7 docs (README section, MIGRATION row, hygiene re-check), pack-shape
+  evidence (npm `pack` dry-run crashes npm 11.19.0 itself on this tree -
+  reproduced on a minimal probe as working, so the crash is the tool
+  walking `node_modules`, not our package; substituted with the tracked
+  file list as the pack set), node CI/deny scope verification.
 
 ## 7. Open risks (not decisions)
 

@@ -220,6 +220,25 @@ let order = rivulus::gateway::ordered_start_list(4, 2); // example values only
 | 30s READY / shutdown | `login()` fails after 30s without READY (`Timeout("READY timeout")`); wrap with `tokio::time::timeout` + `login_elapsed_ms` logging. `shutdown()` cancels the shared token and drains ≤5s - it is TERMINAL (re-login after shutdown times out; rebuild `Client` instead). |
 | redaction | Tokens are `secrecy::SecretString` (never `Display`/`Debug`-printed; `Client` debug shows `***`). `Error` Displays never include tokens - audit own prints for `DISCORD_TOKEN` substrings; log `token_len` at most, never the value. |
 
+## Node.js binding (`node/`, napi-rs)
+
+Same concepts through JS calls; names mirror the rows above. The pinned
+contract is [`node/contract.md`](node/contract.md) (function names,
+sync vs async, shapes, error strings, handle lifecycle).
+
+| discord.js | `rivulus-node` (JS) |
+|---|---|
+| `new Client({ intents })` / `client.login()` | `createClient({ token, intents, cache, sharding })` / `await login(handle)` |
+| `client.on('messageCreate', f)` | `subscribe(handle, kinds, (error, batch) => {})` (error-first listener) |
+| `channel.messages.fetch({ limit })` | `await fetchPage(handle, channelId, limit)` (same clamp rules) |
+| `client.uptime` / `client.ws.ping` | `getUptimeMs(handle)` / `getLatencies(handle)` |
+| `client.destroy()` | `await close(handle)` (drains, releases, forgets the handle) |
+| webhook signature check | `verifyWebhook(publicKeyHex, timestamp, body, sigHex)` (bytes only) |
+
+Handles are monotonic numbers, never recycled; unknown ids reject
+`unknown-handle`. Snapshots carry IDs as strings. Full details plus the
+explicitly out-of-scope list live in the contract file.
+
 ## Explicit v1 exclusions
 
 Activities/RPC, Social SDK, Lobby (track only), voice send/recv (stub +
