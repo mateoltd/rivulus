@@ -39,12 +39,20 @@ Returns the `rivulus-node` crate version. Status: M1.
   `bad-sharding`; multi-shard behavior is untested-for-now).
 - Returns the numeric handle. Status: M3.
 
-### `subscribe(handle: number, kinds: string[]): void` (sync)
+### `createTestClient(options, restBase: string, gatewayBase: string): number` (sync, test-only)
 
-### `unsubscribe(handle: number, kinds: string[]): void` (sync)
+Same contract as `createClient`, plus mock base URLs. Points REST at
+`restBase` and the gateway at `gatewayBase` (used with `login_with_url`
+semantics). Never production. Status: M3.
 
-First subscribe creates the per-client threadsafe function; zero active
-subscriptions unrefs it; close releases it permanently. Status: M3.
+### `subscribe(handle: number, kinds: string[], listener: (batch: string) => void): void` (sync)
+
+First subscribe creates the per-client threadsafe function; replacing the
+listener aborts the previous one. Status: M3.
+
+### `unsubscribe(handle: number): void` (sync)
+
+Clears the subscription and releases the listener. Status: M3.
 
 ### `login(handle: number): Promise<void>` (async)
 
@@ -58,20 +66,31 @@ prefix), `unknown-handle`, `client-closed`. Status: M3.
 Clamp: `0` maps to `1`. Rejects with the same error family as `login`.
 Status: M3.
 
-### `streamPages(handle: number, channelId: string): AsyncIterable<Page>` (async iteration)
+### `streamPages(handle: number, channelId: string, limit: number): Promise<MessageSnapshot[][]>` (async iteration)
 
-Each `Page` is one coarse pre-shaped `Message[]` crossing. The binding
-holds the paging cursor (`after`, mirroring core); JS iterates with no
-cursor math. Dropping iteration via explicit `return()` frees the Rust
-allocation. Status: M3.
+Pages cross eagerly as coarse arrays (one crossing per page, never
+per-item; no retained iterator allocation). The binding holds the paging
+cursor (`after`, mirroring core) so JS iterates the returned array with no
+cursor math. Stops at the first short page or after 10 pages, whichever
+comes first. (`Page` below is a docs alias; the generated `.d.ts` spells
+out the nested arrays so it stays valid TypeScript.) Status: M3.
 
-### Getters (all sync, all take `handle: number`)
+### `getHealth(handle: number): HealthSnapshot` (sync)
 
-- `getHealth(handle): { ready: boolean, shards: number, guildsCached: number, eventsDropped: number }`
-- `getLatencies(handle): { shard: number, total: number, latencyMs: number }[]`
-- `getUptimeMs(handle): number`
-- `getCacheStats(handle): { hitRatio: number, guilds: number, channels: number, messages: number }`
+`{ ready: boolean, shards: number, guildsCached: number,
+eventsDropped: number }`. Status: M3.
 
+### `getLatencies(handle: number): LatencyRow[]` (sync)
+
+`[{ shard: number, total: number, latencyMs: number }]`. Status: M3.
+
+### `getUptimeMs(handle: number): number` (sync)
+
+Status: M3.
+
+### `getCacheStats(handle: number): CacheSnapshot` (sync)
+
+`{ hitRatio: number, guilds: number, channels: number, messages: number }`.
 Status: M3.
 
 ### `verifyWebhook(publicKeyHex: string, timestamp: string, body: Buffer, sigHex: string): void` (sync, pure)
@@ -100,3 +119,8 @@ type Page = Message[];
 
 IDs cross as strings, always (u64 does not fit in a double). Status: M3
 (shape docs; enforced by tests from M3 on).
+
+`Page` is a docs alias for one `Message[]` element of a `streamPages`
+result. It is intentionally not a `.d.ts` export: napi generates no type
+aliases, and a dangling reference would break `tsc` (caught once, fixed
+by spelling the nesting out).

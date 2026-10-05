@@ -9,6 +9,7 @@
   "scripts": {
     "build": "napi build --platform",
     "check-contract": "node check-contract.js",
+    "check-types": "tsc --noEmit -p tsconfig.json",
     "smoke": "node smoke.js",
     "test": "node --test test/"
   },
@@ -19,6 +20,8 @@
     ]
   },
   "devDependencies": {
-    "@napi-rs/cli": "=2.18.4"
+    "@napi-rs/cli": "=2.18.4",
+    "@types/node": "=22.20.5",
+    "typescript": "=5.9.3"
   }
 }

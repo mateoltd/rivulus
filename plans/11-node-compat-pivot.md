@@ -364,3 +364,18 @@ Resolutions, with dissent handled explicitly:
 - Where critics disagreed with each other: none did on substance; glm
   alone praised 2.4's failure condition (kept and strengthened) and noted
   the idle-scoping style detail (adopted as pre-registration discipline).
+
+2026-10-05 M3 execution notes (surface as built, all green):
+- One TSFN per subscription, not per client: re-subscribing aborts the
+  previous one, so at most one is ever live per client. Unsubscribe and
+  close abort plus drop; zero subscriptions means zero live TSFNs, which
+  satisfies the unref rule by construction.
+- `streamPages` returns eager nested arrays (napi 2.16 has no generator
+  support); the `Page` alias stays contract-prose only so `tsc` passes.
+- napi `dyn-symbols` enabled so the `cargo test` harness links without a
+  Node process present; the shipped `.node` resolves symbols from Node.
+- Mock seam is additive only: `ClientBuilder::base_url` (mirrors the
+  existing REST builder hook) plus the pre-existing `login_with_url`;
+  no core behavior changed.
+- u64 never crosses the boundary (napi 2.16 has no plain-u64 JS mapping):
+  latencies and uptime cross as `f64`, IDs as strings, per contract.

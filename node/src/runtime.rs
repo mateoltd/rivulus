@@ -1,66 +1,41 @@
 //! Dedicated single-thread tokio runtime owned by this crate.
 //!
-//! One OS thread parks a `new_current_thread` runtime for the life of the
-//! process and runs binding futures on it sequentially. Async napi entry
-//! points (M3) submit here; no libuv thread ever blocks.
+//! One worker thread drives all binding futures. Async napi entry points
+//! run here via the runtime installed below; no libuv thread ever blocks.
+//! Single worker (not `new_current_thread`, which nobody would drive once
+//! moved into napi): sequential execution by construction.
 
+#[cfg(test)]
 use std::future::Future;
-use std::pin::Pin;
-use std::sync::{mpsc, OnceLock};
-use std::thread::{self, JoinHandle};
 
-/// A boxed job the runtime thread polls to completion.
-type BoxJob = Pin<Box<dyn Future<Output = ()> + Send + 'static>>;
-
-struct Dedicated {
-    tx: mpsc::Sender<BoxJob>,
-    _thread: JoinHandle<()>,
-}
-
-static DEDICATED: OnceLock<Dedicated> = OnceLock::new();
-
-fn global() -> &'static Dedicated {
-    DEDICATED.get_or_init(|| {
-        let (tx, rx) = mpsc::channel::<BoxJob>();
-        let thread = thread::Builder::new()
-            .name(String::from("rivulus-node-rt"))
-            .spawn(move || {
-                let rt = tokio::runtime::Builder::new_current_thread()
-                    .enable_all()
-                    .build()
-                    .expect("dedicated runtime builds");
-                rt.block_on(async move {
-                    // Blocking receive is fine: this thread exists only to run jobs.
-                    while let Ok(job) = rx.recv() {
-                        job.await;
-                    }
-                });
-            })
-            .expect("runtime thread spawns");
-        Dedicated {
-            tx,
-            _thread: thread,
-        }
-    })
-}
-
-/// Run a future to completion on the dedicated runtime, blocking the caller.
+/// Install the dedicated runtime into napi (module init path).
 ///
-/// Test and sync-path plumbing only. Async napi contexts in M3 await the
-/// oneshot instead of calling this.
+/// Idempotent: `create_custom_tokio_runtime` keeps the first runtime and
+/// ignores later calls, so repeated `install()` calls only waste one build.
+pub fn install() {
+    let rt = tokio::runtime::Builder::new_multi_thread()
+        .worker_threads(1)
+        .thread_name("rivulus-node-rt")
+        .enable_all()
+        .build()
+        .expect("dedicated runtime builds");
+    napi::bindgen_prelude::create_custom_tokio_runtime(rt);
+}
+
+/// Run a future to completion on a throwaway runtime, blocking the caller.
+///
+/// Sync test plumbing only (unit tests below). Production async paths go
+/// through the installed runtime via napi, never here.
+#[cfg(test)]
 pub fn block_on_dedicated<F, T>(fut: F) -> T
 where
-    F: Future<Output = T> + Send + 'static,
-    T: Send + 'static,
+    F: Future<Output = T>,
 {
-    let (tx, rx) = tokio::sync::oneshot::channel::<T>();
-    global()
-        .tx
-        .send(Box::pin(async move {
-            let _ignored = tx.send(fut.await);
-        }))
-        .expect("runtime thread alive");
-    rx.blocking_recv().expect("job ran to completion")
+    tokio::runtime::Builder::new_current_thread()
+        .enable_all()
+        .build()
+        .expect("ephemeral runtime builds")
+        .block_on(fut)
 }
 
 #[cfg(test)]
@@ -74,16 +49,15 @@ mod tests {
     }
 
     #[test]
-    fn jobs_run_sequentially_on_one_thread() {
-        let tids: Vec<std::thread::ThreadId> = (0u32..4u32)
-            .map(|i| {
-                block_on_dedicated(async move {
-                    tokio::task::yield_now().await;
-                    (i, std::thread::current().id())
-                })
-                .1
-            })
-            .collect();
-        assert!(tids.windows(2).all(|w| w[0] == w[1]));
+    fn installed_runtime_drives_spawned_tasks() {
+        super::install();
+        let (tx, rx) = std::sync::mpsc::channel::<u32>();
+        napi::bindgen_prelude::spawn(async move {
+            let _ignored = tx.send(7u32);
+        });
+        let got = rx
+            .recv_timeout(std::time::Duration::from_secs(10))
+            .expect("spawned task ran");
+        assert_eq!(got, 7u32);
     }
 }

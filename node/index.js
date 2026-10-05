@@ -310,6 +310,19 @@ if (!nativeBinding) {
   throw new Error(`Failed to load native binding`)
 }
 
-const { version } = nativeBinding
+const { createClient, createTestClient, subscribe, unsubscribe, login, fetchPage, streamPages, getHealth, getLatencies, getUptimeMs, getCacheStats, verifyWebhook, close, version } = nativeBinding
 
+module.exports.createClient = createClient
+module.exports.createTestClient = createTestClient
+module.exports.subscribe = subscribe
+module.exports.unsubscribe = unsubscribe
+module.exports.login = login
+module.exports.fetchPage = fetchPage
+module.exports.streamPages = streamPages
+module.exports.getHealth = getHealth
+module.exports.getLatencies = getLatencies
+module.exports.getUptimeMs = getUptimeMs
+module.exports.getCacheStats = getCacheStats
+module.exports.verifyWebhook = verifyWebhook
+module.exports.close = close
 module.exports.version = version

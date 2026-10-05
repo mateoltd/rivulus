@@ -10,7 +10,9 @@ const dts = fs.readFileSync(path.join(root, "index.d.ts"), "utf8");
 
 const failures = [];
 
-// Collect `### `sig`` headings plus their Status tag (M1 = enforce now).
+// Collect `### `sig`` headings plus their Status tag. Every tagged item
+// (M1 and M3) is enforced: the generated file must export it, and export
+// nothing else.
 const expected = [];
 const lines = contract.split("\n");
 let current = null;
@@ -24,9 +26,7 @@ for (const line of lines) {
     const tag = line.match(/Status: (M\d)/);
     if (tag) {
       current.status = tag[1];
-      if (current.status === "M1") {
-        expected.push(current);
-      }
+      expected.push(current);
       current = null;
     }
   }
@@ -35,13 +35,15 @@ for (const line of lines) {
   }
 }
 
-// Export name + sync/async from a signature like `name(a: b): Ret`.
+// Export name + sync/async from a signature. Uses the LAST "):" split so
+// nested parens (callback params) parse correctly.
 function parseSig(sig) {
-  const m = sig.match(/^([A-Za-z0-9_]+)\s*\(.*?\):\s*(.+)$/);
-  if (!m) {
+  const open = sig.indexOf("(");
+  const sep = sig.lastIndexOf("):");
+  if (open < 1 || sep < 0) {
     return null;
   }
-  return { name: m[1], ret: m[2].trim() };
+  return { name: sig.slice(0, open), ret: sig.slice(sep + 2).trim() };
 }
 
 // Declared exports in the generated file.
@@ -72,7 +74,7 @@ for (const item of expected) {
 
 for (const name of declared.keys()) {
   if (!seen.has(name)) {
-    failures.push(`index.d.ts exports ${name} with no M1 contract entry`);
+    failures.push(`index.d.ts exports ${name} with no contract entry`);
   }
 }
 

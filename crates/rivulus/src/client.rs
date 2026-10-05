@@ -67,6 +67,7 @@ pub struct ClientBuilder {
     token: secrecy::SecretString,
     config: Config,
     handlers: Vec<Arc<dyn crate::EventHandler>>,
+    base: String,
 }
 
 impl std::fmt::Debug for ClientBuilder {
@@ -101,6 +102,14 @@ impl ClientBuilder {
         self.handlers.push(Arc::new(h));
         self
     }
+    /// Override the REST API base (tests point at a mock server; default is
+    /// the production base). Mirrors [`rest::ClientBuilder::base_url`]; for
+    /// the gateway side see [`Client::login_with_url`].
+    #[must_use]
+    pub fn base_url(mut self, base: impl Into<String>) -> Self {
+        self.base = base.into();
+        self
+    }
     /// Build (sync).
     ///
     /// `shards` is the configured cheapest placeholder: one
@@ -114,7 +123,11 @@ impl ClientBuilder {
     /// Returns [`common::Error::Config`] on bad configuration.
     pub fn build(self) -> Result<Client, common::Error> {
         let token = self.token.clone();
-        let http = Arc::new(rest::Client::builder(self.token).build()?);
+        let http = Arc::new(
+            rest::Client::builder(self.token)
+                .base_url(self.base)
+                .build()?,
+        );
         let cache: Arc<dyn cache::Cache> =
             Arc::new(cache::InMemoryCache::new(self.config.cache.clone()));
         #[cfg(feature = "standby")]
@@ -194,6 +207,7 @@ impl Client {
             token: token.into(),
             config: Config::default(),
             handlers: Vec::new(),
+            base: rest::BASE.to_owned(),
         }
     }
     /// Login against live Discord (`GET /gateway/bot` then spawn).
