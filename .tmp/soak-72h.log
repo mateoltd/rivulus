@@ -2296,3 +2296,64 @@ SOAK t=86300 fetch messages count=0 (read-only)
 SOAK t=86360 heartbeat tick=1432 ready=true uptime_ms=86360106 shards=1 lat=[0/1:0ms] guilds_cached=0
 SOAK t=86420 heartbeat tick=1433 ready=true uptime_ms=86420107 shards=1 lat=[0/1:0ms] guilds_cached=0
 SOAK t=86480 heartbeat tick=1434 ready=true uptime_ms=86480108 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=86540 heartbeat tick=1435 ready=true uptime_ms=86540119 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=86600 heartbeat tick=1436 ready=true uptime_ms=86600121 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=86601 fetch guilds_raw count=1
+SOAK t=86601 fetch channels count=4 (read-only)
+SOAK t=86601 fetch messages count=0 (read-only)
+SOAK t=86661 heartbeat tick=1437 ready=true uptime_ms=86661703 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=86721 heartbeat tick=1438 ready=true uptime_ms=86721704 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=86781 heartbeat tick=1439 ready=true uptime_ms=86781705 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=86841 heartbeat tick=1440 ready=true uptime_ms=86841707 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=86901 heartbeat tick=1441 ready=true uptime_ms=86901708 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=86903 fetch guilds_raw count=1
+SOAK t=86903 fetch channels count=4 (read-only)
+SOAK t=86903 fetch messages count=0 (read-only)
+SOAK t=86963 heartbeat tick=1442 ready=true uptime_ms=86963567 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=87023 heartbeat tick=1443 ready=true uptime_ms=87023568 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=87083 heartbeat tick=1444 ready=true uptime_ms=87083569 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=87143 heartbeat tick=1445 ready=true uptime_ms=87143570 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=87203 heartbeat tick=1446 ready=true uptime_ms=87203571 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=87204 fetch guilds_raw count=1
+SOAK t=87205 fetch channels count=4 (read-only)
+SOAK t=87205 fetch messages count=0 (read-only)
+SOAK t=87265 heartbeat tick=1447 ready=true uptime_ms=87265118 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=87325 heartbeat tick=1448 ready=true uptime_ms=87325120 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=87385 heartbeat tick=1449 ready=true uptime_ms=87385121 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=87445 heartbeat tick=1450 ready=true uptime_ms=87445123 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=87505 heartbeat tick=1451 ready=true uptime_ms=87505124 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=87506 fetch guilds_raw count=1
+SOAK t=87506 fetch channels count=4 (read-only)
+SOAK t=87507 fetch messages count=0 (read-only)
+SOAK t=87567 heartbeat tick=1452 ready=true uptime_ms=87566818 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=87627 heartbeat tick=1453 ready=true uptime_ms=87626819 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=87687 heartbeat tick=1454 ready=true uptime_ms=87686820 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=87747 heartbeat tick=1455 ready=true uptime_ms=87746821 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=87807 heartbeat tick=1456 ready=true uptime_ms=87806822 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=87808 fetch guilds_raw count=1
+SOAK t=87808 fetch channels count=4 (read-only)
+SOAK t=87809 fetch messages count=0 (read-only)
+SOAK t=87869 heartbeat tick=1457 ready=true uptime_ms=87869379 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=87929 heartbeat tick=1458 ready=true uptime_ms=87929380 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=87989 heartbeat tick=1459 ready=true uptime_ms=87989381 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=88049 heartbeat tick=1460 ready=true uptime_ms=88049382 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=88109 heartbeat tick=1461 ready=true uptime_ms=88109383 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=88110 fetch guilds_raw count=1
+SOAK t=88110 fetch channels count=4 (read-only)
+SOAK t=88111 fetch messages count=0 (read-only)
+SOAK t=88171 heartbeat tick=1462 ready=true uptime_ms=88170990 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=88231 heartbeat tick=1463 ready=true uptime_ms=88230991 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=88291 heartbeat tick=1464 ready=true uptime_ms=88290992 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=88351 heartbeat tick=1465 ready=true uptime_ms=88350993 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=88411 heartbeat tick=1466 ready=true uptime_ms=88410995 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=88412 fetch guilds_raw count=1
+SOAK t=88412 fetch channels count=4 (read-only)
+SOAK t=88412 fetch messages count=0 (read-only)
+SOAK t=88472 heartbeat tick=1467 ready=true uptime_ms=88472613 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=88532 heartbeat tick=1468 ready=true uptime_ms=88532614 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=88592 heartbeat tick=1469 ready=true uptime_ms=88592616 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=88652 heartbeat tick=1470 ready=true uptime_ms=88652617 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=88712 heartbeat tick=1471 ready=true uptime_ms=88712618 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=88714 fetch guilds_raw count=1
+SOAK t=88714 fetch channels count=4 (read-only)
+SOAK t=88714 fetch messages count=0 (read-only)

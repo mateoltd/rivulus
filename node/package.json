@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "napi build --platform",
+    "check-contract": "node check-contract.js",
     "smoke": "node smoke.js",
     "test": "node --test test/"
   },

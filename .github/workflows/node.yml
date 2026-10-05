@@ -18,6 +18,8 @@ jobs:
         working-directory: node
       - run: npm run build
         working-directory: node
+      - run: npm run check-contract
+        working-directory: node
       - run: npm run smoke
         working-directory: node
       - run: cargo fmt --manifest-path node/Cargo.toml --check
