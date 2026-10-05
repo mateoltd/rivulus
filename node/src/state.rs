@@ -193,42 +193,42 @@ struct PumpHandler {
 }
 
 impl rivulus::EventHandler for PumpHandler {
-  fn on_dispatch(
-    &self,
-    _ctx: rivulus::Context,
-    event: rivulus::model::Event,
-  ) -> futures::future::BoxFuture<'_, ()> {
-    let shared = Arc::clone(&self.shared);
-    Box::pin(async move {
-      // `Event::kind` buckets every non-core dispatch as `UNKNOWN`, so
-      // route by the inner kind: subscribers ask for Discord kinds
-      // (`MESSAGE_CREATE`), not core bucket labels. `Event` itself is not
-      // `Serialize`; snapshot what M3 promises instead.
-      let (kind, data) = match &event {
-        rivulus::model::Event::MessageCreate(message) => {
-          let snapshot = crate::snapshot::MessageSnapshot::of(message);
-          (
-            String::from("MESSAGE_CREATE"),
-            serde_json::json!({
-              "id": snapshot.id,
-              "channel_id": snapshot.channel_id,
-              "author_id": snapshot.author_id,
-              "content": snapshot.content,
-              "timestamp": snapshot.timestamp,
-            }),
-          )
-        }
-        rivulus::model::Event::Unknown { kind, payload, .. } => {
-          let value: serde_json::Value =
-            serde_json::from_str(payload).unwrap_or(serde_json::Value::Null);
-          (kind.to_string(), value)
-        }
-        _ => (event.kind().to_owned(), serde_json::Value::Null),
-      };
-      let batch = serde_json::json!({ "kind": kind, "event": data }).to_string();
-      shared.push_event(&kind, batch);
-    })
-  }
+    fn on_dispatch(
+        &self,
+        _ctx: rivulus::Context,
+        event: rivulus::model::Event,
+    ) -> futures::future::BoxFuture<'_, ()> {
+        let shared = Arc::clone(&self.shared);
+        Box::pin(async move {
+            // `Event::kind` buckets every non-core dispatch as `UNKNOWN`, so
+            // route by the inner kind: subscribers ask for Discord kinds
+            // (`MESSAGE_CREATE`), not core bucket labels. `Event` itself is not
+            // `Serialize`; snapshot what M3 promises instead.
+            let (kind, data) = match &event {
+                rivulus::model::Event::MessageCreate(message) => {
+                    let snapshot = crate::snapshot::MessageSnapshot::of(message);
+                    (
+                        String::from("MESSAGE_CREATE"),
+                        serde_json::json!({
+                          "id": snapshot.id,
+                          "channel_id": snapshot.channel_id,
+                          "author_id": snapshot.author_id,
+                          "content": snapshot.content,
+                          "timestamp": snapshot.timestamp,
+                        }),
+                    )
+                }
+                rivulus::model::Event::Unknown { kind, payload, .. } => {
+                    let value: serde_json::Value =
+                        serde_json::from_str(payload).unwrap_or(serde_json::Value::Null);
+                    (kind.to_string(), value)
+                }
+                _ => (event.kind().to_owned(), serde_json::Value::Null),
+            };
+            let batch = serde_json::json!({ "kind": kind, "event": data }).to_string();
+            shared.push_event(&kind, batch);
+        })
+    }
 }
 
 /// Global registry of live clients.
@@ -295,11 +295,11 @@ impl Registry {
         removed
     }
 
-  /// Test-only live-handle count (exposed to JS as `testLiveCount` for the
-  /// M4 leak probe; never used in production paths).
-  pub fn live_count(&self) -> u64 {
-    self.live.load(Ordering::Relaxed)
-  }
+    /// Test-only live-handle count (exposed to JS as `testLiveCount` for the
+    /// M4 leak probe; never used in production paths).
+    pub fn live_count(&self) -> u64 {
+        self.live.load(Ordering::Relaxed)
+    }
 }
 
 /// Install the listener threadsafe function for one subscription,
