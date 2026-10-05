@@ -1,0 +1,36 @@
+[workspace]
+resolver = "2"
+members = ["crates/*", "xtask"]
+
+[workspace.package]
+edition = "2021"
+rust-version = "1.75"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/rivulus/rivulus"
+description = "Modular async Rust library for building Discord bots (discord.js-level capabilities, no GC)"
+
+[workspace.dependencies]
+common = { version = "0.1.0", package = "rivulus-common", path = "crates/common" }
+model = { version = "0.1.0", package = "rivulus-model", path = "crates/model" }
+gateway = { version = "0.1.0", package = "rivulus-gateway", path = "crates/gateway" }
+rest = { version = "0.1.0", package = "rivulus-rest", path = "crates/rest" }
+cache = { version = "0.1.0", package = "rivulus-cache", path = "crates/cache" }
+standby = { version = "0.1.0", package = "rivulus-standby", path = "crates/standby" }
+interactions = { version = "0.1.0", package = "rivulus-interactions", path = "crates/interactions" }
+framework = { version = "0.1.0", package = "rivulus-framework", path = "crates/framework" }
+voice = { version = "0.1.0", package = "rivulus-voice", path = "crates/voice" }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["raw_value"] }
+serde_repr = "0.1"
+bitflags = "2"
+smallvec = "1"
+bytes = "1"
+itoa = "1"
+thiserror = "1"
+tracing = "0.1"
+tokio = { version = "1", features = ["rt-multi-thread", "net", "time", "sync", "macros", "signal"] }
+tokio-util = { version = "0.7", features = ["full"] }
+futures = "0.3"
+secrecy = "0.8"
+time = { version = "0.3", features = ["serde-well-known", "formatting", "parsing"] }
+percent-encoding = "2"

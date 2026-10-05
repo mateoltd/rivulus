@@ -1,0 +1,52 @@
+[package]
+name = "rivulus"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+description.workspace = true
+repository.workspace = true
+
+[lib]
+name = "rivulus"
+path = "src/lib.rs"
+
+[dependencies]
+tokio.workspace = true
+tokio-util.workspace = true
+futures.workspace = true
+tracing.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+common.workspace = true
+model.workspace = true
+gateway = { workspace = true, optional = true }
+rest = { workspace = true, optional = true }
+cache = { workspace = true, optional = true }
+standby = { workspace = true, optional = true }
+interactions = { workspace = true, optional = true }
+framework = { workspace = true, optional = true }
+voice = { workspace = true, optional = true }
+secrecy.workspace = true
+
+[features]
+default = ["gateway", "rest", "cache-inmemory"]
+full = ["default", "standby", "framework", "interactions"]
+# NOTE: no simd / zstd-gateway / voice-dave / interactions-axum features in v1 (see plans/09)
+gateway = ["dep:gateway", "gateway/tls"]
+rest = ["dep:rest"]
+cache-inmemory = ["dep:cache"]
+standby = ["dep:standby"]
+framework = ["dep:framework"]
+interactions = ["dep:interactions"]
+voice = ["dep:voice"]
+
+# P10 benches: std-only `harness = false` binaries (no criterion: plans/02+09
+# are frozen, so no new deps; see plans/DECISIONS.md). `cargo bench -p rivulus`.
+[[bench]]
+name = "replay"
+harness = false
+
+[[bench]]
+name = "rest_ratelimit"
+harness = false

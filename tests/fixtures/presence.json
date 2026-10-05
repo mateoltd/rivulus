@@ -1,0 +1,15 @@
+{
+  "user": {
+    "id": "333333333333333333",
+    "username": "rivulet",
+    "discriminator": "0"
+  },
+  "guild_id": "111111111111111111",
+  "status": "online",
+  "activities": [
+    {
+      "name": "cargo test",
+      "type": 0
+    }
+  ]
+}

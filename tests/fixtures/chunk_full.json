@@ -1,0 +1,45 @@
+{
+  "guild_id": "111111111111111111",
+  "chunk_index": 0,
+  "chunk_count": 3,
+  "nonce": "members-1",
+  "members": [
+    {
+      "guild_id": "111111111111111111",
+      "user": {
+        "id": "333333333333333333",
+        "username": "rivulet",
+        "discriminator": "0",
+        "global_name": "Rivulet",
+        "avatar": "a_abc123def456",
+        "bot": false,
+        "system": false
+      },
+      "nick": "riv",
+      "roles": [
+        "555555555555555555"
+      ],
+      "joined_at": "2023-11-05T08:00:00.000Z",
+      "deaf": false,
+      "mute": false,
+      "pending": false
+    },
+    {
+      "guild_id": "111111111111111111",
+      "user": {
+        "id": "333333333333333334",
+        "username": "helperbot",
+        "discriminator": "0",
+        "bot": true
+      },
+      "roles": [],
+      "deaf": false,
+      "mute": false,
+      "pending": true
+    }
+  ],
+  "not_found": [
+    "999999999999999991",
+    "999999999999999992"
+  ]
+}

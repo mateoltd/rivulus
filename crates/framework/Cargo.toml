@@ -1,0 +1,19 @@
+[package]
+name = "rivulus-framework"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+description.workspace = true
+repository.workspace = true
+
+[lib]
+name = "framework"
+path = "src/lib.rs"
+
+[dependencies]
+tokio.workspace = true
+tracing.workspace = true
+common.workspace = true
+model.workspace = true
+rest.workspace = true

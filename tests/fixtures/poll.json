@@ -1,0 +1,17 @@
+{
+  "question": "Ship Friday?",
+  "answers": [
+    {
+      "answer_id": 1,
+      "text": "Yes"
+    },
+    {
+      "answer_id": 2,
+      "text": "No"
+    },
+    {
+      "answer_id": 3,
+      "text": "Monday"
+    }
+  ]
+}

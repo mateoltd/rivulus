@@ -1,0 +1,9 @@
+{
+  "type": 17,
+  "components": [
+    {
+      "type": 10,
+      "content": "Deploy status: green"
+    }
+  ]
+}

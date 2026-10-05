@@ -1,0 +1,154 @@
+{
+  "bench": "replay",
+  "budgets": {
+    "p99_ms": 5.0
+  },
+  "cases": [
+    {
+      "alloc_bytes_per_event": 260.0,
+      "allocs_per_event": 5.0,
+      "events_per_sec": 1437895.1515613385,
+      "input_bytes": 214,
+      "mean_ms": 0.000695461,
+      "name": "MESSAGE_CREATE",
+      "net_bytes_per_event": 0.0,
+      "p50_ms": 0.00068,
+      "p99_ms": 0.00075,
+      "reallocs_per_event": 0.0
+    },
+    {
+      "alloc_bytes_per_event": 145.0,
+      "allocs_per_event": 2.0,
+      "events_per_sec": 3034394.865803887,
+      "input_bytes": 79,
+      "mean_ms": 0.000329555,
+      "name": "GUILD_CREATE",
+      "net_bytes_per_event": 0.0,
+      "p50_ms": 0.00031,
+      "p99_ms": 0.00063,
+      "reallocs_per_event": 0.0
+    },
+    {
+      "alloc_bytes_per_event": 234.0,
+      "allocs_per_event": 5.0,
+      "events_per_sec": 1803164.73442539,
+      "input_bytes": 148,
+      "mean_ms": 0.0005545805,
+      "name": "GUILD_MEMBER_ADD",
+      "net_bytes_per_event": 0.0,
+      "p50_ms": 0.00053,
+      "p99_ms": 0.00058,
+      "reallocs_per_event": 0.0
+    },
+    {
+      "alloc_bytes_per_event": 119.0,
+      "allocs_per_event": 2.0,
+      "events_per_sec": 3292067.2701025973,
+      "input_bytes": 81,
+      "mean_ms": 0.0003037605,
+      "name": "CHANNEL_CREATE",
+      "net_bytes_per_event": 0.0,
+      "p50_ms": 0.0003,
+      "p99_ms": 0.00033,
+      "reallocs_per_event": 0.0
+    },
+    {
+      "alloc_bytes_per_event": 112.0,
+      "allocs_per_event": 1.0,
+      "events_per_sec": 4005680.0543170217,
+      "input_bytes": 63,
+      "mean_ms": 0.0002496455,
+      "name": "CHANNEL_CREATE(unknown kind)",
+      "net_bytes_per_event": 0.0,
+      "p50_ms": 0.00025,
+      "p99_ms": 0.00027,
+      "reallocs_per_event": 0.0
+    },
+    {
+      "alloc_bytes_per_event": 75.0,
+      "allocs_per_event": 2.0,
+      "events_per_sec": 2857302.0496856254,
+      "input_bytes": 104,
+      "mean_ms": 0.0003499805,
+      "name": "GUILD_ROLE_CREATE",
+      "net_bytes_per_event": 0.0,
+      "p50_ms": 0.00034,
+      "p99_ms": 0.00038,
+      "reallocs_per_event": 0.0
+    },
+    {
+      "alloc_bytes_per_event": 104.0,
+      "allocs_per_event": 2.0,
+      "events_per_sec": 2815192.4676710335,
+      "input_bytes": 113,
+      "mean_ms": 0.00035521550000000004,
+      "name": "GUILD_MEMBERS_CHUNK",
+      "net_bytes_per_event": 0.0,
+      "p50_ms": 0.00035,
+      "p99_ms": 0.00039,
+      "reallocs_per_event": 0.0
+    },
+    {
+      "alloc_bytes_per_event": 91.0,
+      "allocs_per_event": 2.0,
+      "events_per_sec": 2491649.8584119966,
+      "input_bytes": 115,
+      "mean_ms": 0.00040134050000000004,
+      "name": "INTERACTION_CREATE",
+      "net_bytes_per_event": 0.0,
+      "p50_ms": 0.00039,
+      "p99_ms": 0.00044,
+      "reallocs_per_event": 0.0
+    },
+    {
+      "alloc_bytes_per_event": 11.0,
+      "allocs_per_event": 1.0,
+      "events_per_sec": 7500468.779298707,
+      "input_bytes": 44,
+      "mean_ms": 0.000133325,
+      "name": "resource:Component",
+      "net_bytes_per_event": 0.0,
+      "p50_ms": 0.00013,
+      "p99_ms": 0.00022,
+      "reallocs_per_event": 0.0
+    },
+    {
+      "alloc_bytes_per_event": 0.0,
+      "allocs_per_event": 0.0,
+      "events_per_sec": 10598272.4815855,
+      "input_bytes": 30,
+      "mean_ms": 0.000094355,
+      "name": "resource:AuditEntry",
+      "net_bytes_per_event": 0.0,
+      "p50_ms": 0.00009,
+      "p99_ms": 0.00011,
+      "reallocs_per_event": 0.0
+    },
+    {
+      "alloc_bytes_per_event": 24.0,
+      "allocs_per_event": 1.0,
+      "events_per_sec": 3805247.4362145397,
+      "input_bytes": 153,
+      "mean_ms": 0.000262795,
+      "name": "resource:GetGatewayBotResponse",
+      "net_bytes_per_event": 0.0,
+      "p50_ms": 0.00026,
+      "p99_ms": 0.00027,
+      "reallocs_per_event": 0.0
+    },
+    {
+      "alloc_bytes_per_event": 0.0,
+      "allocs_per_event": 0.0,
+      "events_per_sec": 15659254.619480113,
+      "input_bytes": 13,
+      "mean_ms": 0.00006386,
+      "name": "resource:Permissions",
+      "net_bytes_per_event": 0.0,
+      "p50_ms": 0.00006,
+      "p99_ms": 0.00007,
+      "reallocs_per_event": 0.0
+    }
+  ],
+  "iters": 2000,
+  "unix_secs": 1790606886
+}

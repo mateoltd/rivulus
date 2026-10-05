@@ -1,0 +1,12 @@
+{
+  "name": "rivulus-djs-equiv",
+  "version": "0.1.0",
+  "private": true,
+  "description": "discord.js equivalent bot for rivulus P10 RAM comparison (skeleton; run on nightly, never in CI)",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "discord.js": "^14"
+  }
+}

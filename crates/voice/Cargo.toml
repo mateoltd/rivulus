@@ -1,0 +1,16 @@
+[package]
+name = "rivulus-voice"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+description.workspace = true
+repository.workspace = true
+
+[lib]
+name = "voice"
+path = "src/lib.rs"
+
+[dependencies]
+common.workspace = true
+model.workspace = true

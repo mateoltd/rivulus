@@ -1,0 +1,15 @@
+# Rust build artifacts (workspace target + local .tmp build cache is 15G — never commit)
+/target/
+.tmp/target/
+target/
+
+# Incremental / backup files
+**/*.rs.bk
+**/*.orig
+
+# Editor / OS noise
+.DS_Store
+*.swp
+*.swo
+.vscode/
+.idea/

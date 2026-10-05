@@ -1,0 +1,11 @@
+{
+  "id": "4",
+  "channel_id": "3",
+  "author": {
+    "id": "2",
+    "username": "u",
+    "discriminator": "0"
+  },
+  "content": "hi",
+  "timestamp": "2024-01-01T00:00:00Z"
+}

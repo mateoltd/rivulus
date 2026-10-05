@@ -1,0 +1,11 @@
+{
+  "v": 10,
+  "session_id": "sess_ready_123",
+  "resume_gateway_url": "wss://gateway.discord.gg",
+  "user": {
+    "id": "333333333333333334",
+    "username": "helperbot",
+    "discriminator": "0",
+    "bot": true
+  }
+}

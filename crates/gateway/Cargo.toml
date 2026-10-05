@@ -1,0 +1,29 @@
+[package]
+name = "rivulus-gateway"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+description.workspace = true
+repository.workspace = true
+
+[lib]
+name = "gateway"
+path = "src/lib.rs"
+
+[dependencies]
+tokio.workspace = true
+tokio-util.workspace = true
+futures.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tracing.workspace = true
+common.workspace = true
+model.workspace = true
+secrecy.workspace = true
+tokio-tungstenite = { version = "0.24" }
+flate2 = { version = "1" }
+
+[features]
+default = ["tls"]
+tls = ["tokio-tungstenite/rustls-tls-webpki-roots"]

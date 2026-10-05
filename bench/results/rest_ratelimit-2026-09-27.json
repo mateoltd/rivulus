@@ -1,0 +1,28 @@
+{
+  "available": {
+    "n": 200,
+    "p50_ms": 0.267926,
+    "p99_ms": 0.374455,
+    "within_budget": true
+  },
+  "bench": "rest_ratelimit",
+  "budgets": {
+    "available_p99_ms": 2.0
+  },
+  "preemptive": {
+    "ok": true,
+    "reset_after_ms": 200.0,
+    "wait_ms": 200.80019800000002
+  },
+  "queue_depth": {
+    "concurrency": 32,
+    "hits": 32,
+    "p50_ms": 1.396702,
+    "p99_ms": 32.517401,
+    "wall_ms": 32.956534000000005
+  },
+  "shared_excluded": {
+    "ok": true
+  },
+  "unix_secs": 1790474874
+}

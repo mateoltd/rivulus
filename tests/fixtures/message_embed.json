@@ -1,0 +1,30 @@
+{
+  "id": "444444444444444444",
+  "channel_id": "222222222222222222",
+  "guild_id": "111111111111111111",
+  "author": {
+    "id": "333333333333333333",
+    "username": "rivulet",
+    "discriminator": "0",
+    "global_name": "Rivulet",
+    "avatar": "a_abc123def456",
+    "bot": false,
+    "system": false
+  },
+  "content": "Deploy is green",
+  "timestamp": "2024-05-01T12:34:56.000Z",
+  "tts": false,
+  "mention_everyone": false,
+  "embeds": [
+    {
+      "title": "Build #42",
+      "description": "All checks passed",
+      "color": 5763719
+    },
+    {
+      "title": "Coverage",
+      "description": "91.2%",
+      "color": 15548997
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "111111111111111111",
+  "name": "Rivulus Test Guild",
+  "owner_id": "333333333333333333",
+  "member_count": 42,
+  "roles": [
+    {
+      "id": "555555555555555555",
+      "name": "mod",
+      "position": 3,
+      "permissions": "268435472",
+      "hoist": true,
+      "managed": false,
+      "mentionable": true,
+      "color": 3447003,
+      "flags": 0
+    },
+    {
+      "id": "555555555555555556",
+      "name": "member",
+      "position": 1,
+      "permissions": "104324673"
+    }
+  ],
+  "emojis": [
+    {
+      "id": "666666666666666666",
+      "name": "wave",
+      "animated": false
+    },
+    {
+      "id": "666666666666666667",
+      "name": "dance",
+      "animated": true
+    }
+  ],
+  "stickers": [
+    {
+      "id": "777777777777777777",
+      "name": "hype",
+      "format_type": 1
+    }
+  ],
+  "unavailable": false
+}

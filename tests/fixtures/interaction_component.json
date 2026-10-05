@@ -1,0 +1,9 @@
+{
+  "id": "161616161616161616",
+  "application_id": "888888888888888888",
+  "token": "tok_interaction_abc",
+  "guild_id": "111111111111111111",
+  "channel_id": "222222222222222222",
+  "custom_id": "btn:approve",
+  "type": 3
+}

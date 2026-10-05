@@ -1,0 +1,20 @@
+[package]
+name = "rivulus-standby"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+description.workspace = true
+repository.workspace = true
+
+[lib]
+name = "standby"
+path = "src/lib.rs"
+
+[dependencies]
+tokio.workspace = true
+futures.workspace = true
+tracing.workspace = true
+common.workspace = true
+model.workspace = true
+cache.workspace = true

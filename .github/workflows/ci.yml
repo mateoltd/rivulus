@@ -1,0 +1,155 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cargo fmt --check
+  clippy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - run: cargo clippy --workspace --all-features -- -D warnings
+  build-test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        toolchain: ["1.75", stable]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ matrix.toolchain }}
+      - run: cargo test --workspace --all-features
+  doc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      # NOTE (P11): `cargo doc` accepts no `--` rustdoc passthrough
+      # (modern cargo errors `unexpected argument '-D'`); deny warnings via env.
+      - run: RUSTDOCFLAGS="-D warnings" cargo doc --workspace --no-deps --all-features
+  lint-guards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          python3 - <<'EOF'
+          import re, pathlib, sys
+          bad = []
+          for p in pathlib.Path('crates').rglob('src/**/*.rs'):
+              lines = p.read_text().splitlines()
+              # strip doc-comment lines (doctests may use combinators freely)
+              # track #[cfg(test)] mod tests blocks by brace depth
+              in_test = 0
+              pending_test = False
+              depth = 0
+              for i, line in enumerate(lines, 1):
+                  if '#[cfg(test)]' in line:
+                      pending_test = True
+                  opens = line.count('{') - line.count('}')
+                  if pending_test and opens > 0:
+                      in_test = depth + opens
+                      pending_test = False
+                  stripped = line.strip()
+                  if stripped.startswith('///') or stripped.startswith('//!'):
+                      pass
+                  elif in_test:
+                      pass
+                  else:
+                      if re.search(r'unwrap\(|expect\(', line):
+                          bad.append(f'{p}:{i}:{line.strip()}')
+                  depth += opens
+                  if in_test and depth < in_test:
+                      in_test = 0
+          if bad:
+              print('unwrap/expect in non-test src/:')
+              print('\n'.join(bad))
+              sys.exit(1)
+          EOF
+          if grep -rn 'mod gateway' crates/rivulus/src/; then echo 'facade shadows gateway module'; exit 1; fi
+          if grep -rn 'rivulus-gateway::\|rivulus-model::\|rivulus-common' plans/ crates/ --include='*.md' --include='*.rs' | grep -v 'name = "rivulus-' | grep -v 'package rivulus-'; then echo 'namespace stutter'; exit 1; fi
+  deny:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: EmbarkStudios/cargo-deny-action@v2
+        with:
+          command: check
+  geiger:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo install cargo-geiger --locked
+      # P0 gate (plans/08): OUR packages only, deps excluded. cargo-geiger
+      # takes a single --package per invocation, so loop explicitly.
+      # Green by construction via workspace-wide `#![forbid(unsafe_code)]`.
+      - run: |
+          for p in rivulus rivulus-common rivulus-model rivulus-gateway rivulus-rest rivulus-cache rivulus-standby rivulus-interactions rivulus-framework rivulus-voice; do
+            cargo geiger --forbid-only --package "$p" --all-features
+          done
+  audit:
+    runs-on: ubuntu-latest
+    # Advisory DB needs network; informational, never blocks the release train.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: rustsec/audit-check@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+  bench-quick:
+    runs-on: ubuntu-latest
+    # Tolerance-band perf gate per plans/05§4 (never absolute RSS).
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: |
+          cargo bench --no-run --all-features
+          # P10 `benches/replay.rs --quick` plugs in here when it lands;
+          # until then this stays a compile-only guard so the job is green.
+          if [ -f benches/replay.rs ]; then cargo bench --bench replay -- --quick; fi
+  no-default:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo check -p rivulus --no-default-features
+  publish-dry-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: |
+          # Packaging gate (local, no index needed): every crate must package.
+          # (xtask is publish=false dev tooling: excluded, never shipped.)
+          cargo package --workspace --exclude xtask --no-verify
+          # NOTE: full `cargo publish --dry-run` per crate additionally needs
+          # bottom-up crates.io releases (common -> model -> ... -> rivulus)
+          # since intra-workspace deps resolve via the index; pre-1.0 only the
+          # leaf resolves, so CI dry-runs the leaf and packages the rest.
+          cargo publish --dry-run --no-verify -p rivulus-common
+  coverage:
+    runs-on: ubuntu-latest
+    # CONFIG-ONLY pre-1.0: S5 tarpaulin>=80% gate (rest/gateway/cache) is
+    # informational until the first measured run lands (see tarpaulin.toml).
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: |
+          cargo install cargo-tarpaulin --locked
+          cargo tarpaulin --config tarpaulin.toml --out Xml
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          test -f CHANGELOG.md || (echo 'CHANGELOG.md missing'; exit 1)
+          grep -q '## \[0\.1\.0\]' CHANGELOG.md || (echo 'CHANGELOG.md has no 0.1.0 section'; exit 1)

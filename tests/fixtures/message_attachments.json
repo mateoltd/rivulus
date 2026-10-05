@@ -1,0 +1,30 @@
+{
+  "id": "444444444444444444",
+  "channel_id": "222222222222222222",
+  "author": {
+    "id": "333333333333333333",
+    "username": "rivulet",
+    "discriminator": "0",
+    "global_name": "Rivulet",
+    "avatar": "a_abc123def456",
+    "bot": false,
+    "system": false
+  },
+  "content": "Logs attached",
+  "timestamp": "2024-05-01T12:34:56.000Z",
+  "attachments": [
+    {
+      "id": "444444444444444444",
+      "filename": "gateway.log",
+      "size": 18432,
+      "url": "https://cdn.discordapp.com/attachments/1/2/gateway.log",
+      "description": "Gateway trace"
+    },
+    {
+      "id": "444444444444444445",
+      "filename": "flame.svg",
+      "size": 90210,
+      "url": "https://cdn.discordapp.com/attachments/1/2/flame.svg"
+    }
+  ]
+}

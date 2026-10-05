@@ -1,0 +1,7 @@
+{
+  "id": "999999999999999999",
+  "guild_id": "111111111111111111",
+  "channel_id": "222222222222222222",
+  "name": "deploy-hook",
+  "token": "tok_abc123_secret"
+}

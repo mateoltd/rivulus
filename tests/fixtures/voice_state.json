@@ -1,0 +1,8 @@
+{
+  "guild_id": "111111111111111111",
+  "channel_id": "222222222222222222",
+  "user_id": "333333333333333333",
+  "session_id": "sess_abc123",
+  "mute": false,
+  "deaf": true
+}

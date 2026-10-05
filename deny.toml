@@ -1,0 +1,6 @@
+[graph]
+all-features = true
+[licenses]
+# Unicode-3.0: successor of Unicode-DFS-2016 (ICU crates via reqwest->idna).
+# CDLA-Permissive-2.0: Mozilla CA cert data (webpki-roots, locked P0 TLS choice).
+allow = ["MIT", "Apache-2.0", "ISC", "BSD-3-Clause", "BSD-2-Clause", "Unicode-DFS-2016", "Unicode-3.0", "MPL-2.0", "CC0-1.0", "Zlib", "OpenSSL", "CDLA-Permissive-2.0"]

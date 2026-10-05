@@ -1,0 +1,11 @@
+{
+  "id": "555555555555555555",
+  "name": "mod",
+  "position": 3,
+  "permissions": "268435472",
+  "hoist": true,
+  "managed": false,
+  "mentionable": true,
+  "color": 3447003,
+  "flags": 0
+}
