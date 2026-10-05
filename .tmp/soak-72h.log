@@ -2773,3 +2773,6 @@ SOAK t=104401 heartbeat tick=1731 ready=true uptime_ms=104401353 shards=1 lat=[0
 SOAK t=104402 fetch guilds_raw count=1
 SOAK t=104402 fetch channels count=4 (read-only)
 SOAK t=104403 fetch messages count=0 (read-only)
+SOAK t=104463 heartbeat tick=1732 ready=true uptime_ms=104462901 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=104523 heartbeat tick=1733 ready=true uptime_ms=104522902 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=104583 heartbeat tick=1734 ready=true uptime_ms=104582903 shards=1 lat=[0/1:0ms] guilds_cached=0

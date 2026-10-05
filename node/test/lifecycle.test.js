@@ -18,9 +18,11 @@ test("close during pending login rejects the login", async (t) => {
   const ctx = await setup([], { silent: true });
   t.after(() => teardown(ctx));
   const pending = binding.login(ctx.handle);
+  // Attach immediately: Node flags rejections observed without a handler
+  // (Node 20 fails the test file on them even when handled later).
+  pending.catch(() => {});
   await new Promise((resolve) => setTimeout(resolve, 200));
   await binding.close(ctx.handle);
   await assert.rejects(pending);
-  await teardown(ctx);
   assert.equal(binding.testLiveCount(), 0);
 });
