@@ -2566,3 +2566,30 @@ SOAK t=96559 fetch guilds_raw count=1
 SOAK t=96560 fetch channels count=4 (read-only)
 SOAK t=96560 fetch messages count=0 (read-only)
 SOAK t=96620 heartbeat tick=1602 ready=true uptime_ms=96620085 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=96680 heartbeat tick=1603 ready=true uptime_ms=96680086 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=96740 heartbeat tick=1604 ready=true uptime_ms=96740087 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=96800 heartbeat tick=1605 ready=true uptime_ms=96800088 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=96860 heartbeat tick=1606 ready=true uptime_ms=96860089 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=96861 fetch guilds_raw count=1
+SOAK t=96861 fetch channels count=4 (read-only)
+SOAK t=96861 fetch messages count=0 (read-only)
+SOAK t=96921 heartbeat tick=1607 ready=true uptime_ms=96921743 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=96981 heartbeat tick=1608 ready=true uptime_ms=96981743 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=97041 heartbeat tick=1609 ready=true uptime_ms=97041744 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=97101 heartbeat tick=1610 ready=true uptime_ms=97101745 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=97161 heartbeat tick=1611 ready=true uptime_ms=97161746 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=97163 fetch guilds_raw count=1
+SOAK t=97163 fetch channels count=4 (read-only)
+SOAK t=97163 fetch messages count=0 (read-only)
+SOAK t=97223 heartbeat tick=1612 ready=true uptime_ms=97223326 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=97283 heartbeat tick=1613 ready=true uptime_ms=97283330 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=97343 heartbeat tick=1614 ready=true uptime_ms=97343332 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=97403 heartbeat tick=1615 ready=true uptime_ms=97403333 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=97463 heartbeat tick=1616 ready=true uptime_ms=97463335 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=97464 fetch guilds_raw count=1
+SOAK t=97465 fetch channels count=4 (read-only)
+SOAK t=97465 fetch messages count=0 (read-only)
+SOAK t=97525 heartbeat tick=1617 ready=true uptime_ms=97525028 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=97585 heartbeat tick=1618 ready=true uptime_ms=97585029 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=97645 heartbeat tick=1619 ready=true uptime_ms=97645030 shards=1 lat=[0/1:0ms] guilds_cached=0
+SOAK t=97705 heartbeat tick=1620 ready=true uptime_ms=97705031 shards=1 lat=[0/1:0ms] guilds_cached=0
