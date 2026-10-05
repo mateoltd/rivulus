@@ -1,6 +1,15 @@
 [graph]
 all-features = true
+[advisories]
+# RUSTSEC-2026-0009 (time <0.3.47, RFC 2822 recursion DoS): accepted risk.
+# Our `time` use is exclusively `time::serde::rfc3339(+option)` for Discord
+# timestamps (crates/model); the vulnerable RFC 2822 parser is never called
+# (Discord sends RFC 3339, serde rejects anything else first). Upgrading to
+# the fixed 0.3.47+ is impossible here: every fixed release declares
+# rust-version 1.81+ while this workspace pins MSRV 1.75 (plans/09).
+# Revisit when MSRV moves past 1.81.
+ignore = ["RUSTSEC-2026-0009"]
 [licenses]
-# Unicode-3.0: successor of Unicode-DFS-2016 (ICU crates via reqwest->idna).
+# Unicode-3.0: ICU crates via reqwest->url->idna (1.x era).
 # CDLA-Permissive-2.0: Mozilla CA cert data (webpki-roots, locked P0 TLS choice).
-allow = ["MIT", "Apache-2.0", "ISC", "BSD-3-Clause", "BSD-2-Clause", "Unicode-DFS-2016", "Unicode-3.0", "MPL-2.0", "CC0-1.0", "Zlib", "OpenSSL", "CDLA-Permissive-2.0"]
+allow = ["MIT", "Apache-2.0", "ISC", "BSD-3-Clause", "BSD-2-Clause", "Unicode-3.0", "MPL-2.0", "CC0-1.0", "Zlib", "OpenSSL", "CDLA-Permissive-2.0"]

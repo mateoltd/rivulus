@@ -73,7 +73,9 @@ jobs:
               sys.exit(1)
           EOF
           if grep -rn 'mod gateway' crates/rivulus/src/; then echo 'facade shadows gateway module'; exit 1; fi
-          if grep -rn 'rivulus-gateway::\|rivulus-model::\|rivulus-common' plans/ crates/ --include='*.md' --include='*.rs' | grep -v 'name = "rivulus-' | grep -v 'package rivulus-'; then echo 'namespace stutter'; exit 1; fi
+          # stutter guard: Rust paths must use short names; cargo `-p pkg`
+          # selectors in docs (e.g. `-p rivulus-common`) are legitimate.
+          if grep -rn 'rivulus-gateway::\|rivulus-model::\|rivulus-common' plans/ crates/ --include='*.md' --include='*.rs' | grep -v 'name = "rivulus-' | grep -v 'package rivulus-' | grep -v -- '-p rivulus-'; then echo 'namespace stutter'; exit 1; fi
   deny:
     runs-on: ubuntu-latest
     steps:
@@ -87,12 +89,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - run: cargo install cargo-geiger --locked
-      # P0 gate (plans/08): OUR packages only, deps excluded. cargo-geiger
-      # takes a single --package per invocation, so loop explicitly.
+      # P0 gate (plans/08): OUR packages only, deps excluded.
+      # cargo-geiger cannot run against a virtual manifest, so enter each
+      # member dir explicitly (same 10 packages; xtask excluded as before).
       # Green by construction via workspace-wide `#![forbid(unsafe_code)]`.
       - run: |
-          for p in rivulus rivulus-common rivulus-model rivulus-gateway rivulus-rest rivulus-cache rivulus-standby rivulus-interactions rivulus-framework rivulus-voice; do
-            cargo geiger --forbid-only --package "$p" --all-features
+          for d in rivulus common model gateway rest cache standby interactions framework voice; do
+            ( cd "crates/$d" && cargo geiger --forbid-only --all-features )
           done
   audit:
     runs-on: ubuntu-latest

@@ -1,6 +1,7 @@
 # Rust build artifacts (workspace target + local .tmp build cache is 15G — never commit)
 /target/
 .tmp/target/
+.tmp/target-*/
 target/
 
 # Incremental / backup files
